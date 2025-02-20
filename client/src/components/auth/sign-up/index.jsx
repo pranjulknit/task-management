@@ -1,5 +1,6 @@
 import CommonForm from "@/components/common-form"
 import { signupformControls } from "@/config"
+import { registerApi } from "@/services";
 import { useForm } from "react-hook-form"
 
 function SignUp(){
@@ -11,8 +12,12 @@ function SignUp(){
     }
   })
 
-  function handleSubmit(){
+  async function handleSubmit(sendData){
+      console.log(sendData);
+      const data = await registerApi(sendData)
 
+      console.log(data);
+      
   }
   return(
     <div>

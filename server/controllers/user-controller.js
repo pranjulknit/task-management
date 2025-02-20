@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const User = require("../models/user");
+const {user} = require("../db/index");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -21,7 +21,8 @@ const generateToken = (getId) => {
   });
 };
 
-const registerUser = async (req, res, next) => {
+const registerUser = async (req, res) => {
+    console.log(req.body);
   const { name, email, password } = await req.body;
 
   const { error } = registerSchema.validate({ name, email, password });
@@ -34,7 +35,8 @@ const registerUser = async (req, res, next) => {
   }
 
   try {
-    const isUserEmailAlreadyExists = await User.findOne({ email });
+    const isUserEmailAlreadyExists = await user.findOne({email});
+    console.log("isuser",isUserEmailAlreadyExists);
 
     if (isUserEmailAlreadyExists) {
       return res.status(400).json({
@@ -44,7 +46,7 @@ const registerUser = async (req, res, next) => {
     } else {
       const hashPassword = await bcrypt.hash(password, 12);
 
-      const newUser = await User.create({
+      const newUser = await user.create({
         name,
         email,
         password: hashPassword,
@@ -68,7 +70,7 @@ const registerUser = async (req, res, next) => {
           },
         });
 
-        next();
+     
       }
     }
   } catch (error) {
@@ -81,7 +83,7 @@ const registerUser = async (req, res, next) => {
   }
 };
 
-const loginUser = async (req, res, next) => {
+const loginUser = async (req, res) => {
   const { password, email } = await req.body;
 
   const { error } = loginSchema.validate({ email, password });
@@ -94,7 +96,7 @@ const loginUser = async (req, res, next) => {
   }
 
   try {
-    const getUser = await User.findOne({ email });
+    const getUser = await user.findOne({ email });
 
     if (!getUser) {
       return res.json({
@@ -123,7 +125,7 @@ const loginUser = async (req, res, next) => {
       message: "User logged in",
     });
 
-    next();
+   
   } catch (error) {
     console.log(error);
 
