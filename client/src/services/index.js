@@ -14,4 +14,17 @@ export const registerApi = async (formData) => {
     }
 };
 
+export const loginApi = async(formData)=>{
+    try{
+      const response = await axios.post("http://localhost:5000/api/user/login",formData,{withCredentials:true});
+      return response?.data;
+    }catch(e){
+        console.error("Error during login:", e);
+    }
+}
 
+
+export const userAuth = async()=>{
+    const response = await axios.post("http://localhost:5000/api/user/auth",{},{withCredentials:true});
+    return response?.data;
+}

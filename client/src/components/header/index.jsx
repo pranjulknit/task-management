@@ -1,20 +1,14 @@
 import { TaskManagerContext } from "@/context";
-import { callLogoutApi } from "@/services";
+
 import { LogOut } from "lucide-react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
-  const { setUser } = useContext(TaskManagerContext);
-  const navigate = useNavigate();
+
 
   async function handleLogout() {
-    const response = await callLogoutApi();
-
-    if (response?.success) {
-      setUser(null);
-      navigate("/auth");
-    }
+   
   }
 
   return (

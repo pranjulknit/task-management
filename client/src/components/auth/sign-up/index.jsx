@@ -27,6 +27,10 @@ function SignUp(){
           title:"Success",
           description:"Welcome"
         })
+        toast({
+          title:"Success",
+          description:"Going to tasks list"
+        })
         navigate("/tasks/list")
       }else{
         toast({

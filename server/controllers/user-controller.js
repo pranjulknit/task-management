@@ -2,6 +2,9 @@ const Joi = require("joi");
 const {user} = require("../db/index");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
+const secret = process.env.SECRET_KEY;
 
 
 const registerSchema = Joi.object({
@@ -16,7 +19,7 @@ const loginSchema = Joi.object({
 });
 
 const generateToken = (getId) => {
-  return jwt.sign({ getId }, "DEFAULT_SECRET_KEY", {
+  return jwt.sign({ getId }, secret, {
     expiresIn: 3 * 24 * 60 * 60,
   });
 };
