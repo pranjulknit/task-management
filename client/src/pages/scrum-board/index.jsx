@@ -1,5 +1,5 @@
 function ScrumBoardPage(){
-    return <div>AuthPage</div>
+    return <div>ScrumPage</div>
 }
 
 export default ScrumBoardPage;

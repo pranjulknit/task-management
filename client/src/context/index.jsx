@@ -25,7 +25,7 @@ function TaskManagerProvider({children}){
 
      },[navigate,location.pathname])
 
-    return <TaskManagerContext.Provider>
+    return <TaskManagerContext.Provider value={{user,setUser}}>
         {children}
     </TaskManagerContext.Provider>
 
