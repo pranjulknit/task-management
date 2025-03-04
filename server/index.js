@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieparser = require("cookie-parser");
 const { userRouter } = require("./router/user-router");
+const taskRouter = require("./router/task-router");
+const middilecheck = require("./middilware/middilecheck");
 const app =   express();
 require("./db")
 dotenv.config();
@@ -31,6 +33,7 @@ app.use(cookieparser());
 
 
 app.use("/api/user",userRouter);
+app.use("/api/tasks",taskRouter);
 
 app.use("/api",(req,res)=>{
     res.status(200).json({

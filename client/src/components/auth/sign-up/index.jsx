@@ -1,6 +1,7 @@
 import CommonForm from "@/components/common-form"
 import { useToast } from "@/components/ui/use-toast";
-import { signupformControls } from "@/config"
+import { signUpFormControls } from "@/config";
+
 import { registerApi } from "@/services";
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
@@ -44,7 +45,7 @@ function SignUp(){
     <div>
    
      <CommonForm form={formData}
-     formControls={signupformControls} handleSubmit={handleSubmit} butnText={"Sign Up"}/>
+     formControls={signUpFormControls} handleSubmit={handleSubmit} butnText={"Sign Up"}/>
     </div>
 
   )

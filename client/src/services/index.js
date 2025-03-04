@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 
 
 export const registerApi = async (formData) => {
@@ -34,5 +34,24 @@ export const logoutApi = async()=>{
      const response = await axios.post("http://localhost:5000/api/user/logout",{},{withCredentials:true});
 
      return  response?.data;
+
+}
+
+export const addNewTaskApi = async(formData)=>{
+    console.log("addnew data",formData)
+    const response = await axios.post("http://localhost:5000/api/tasks/add-new-task",formData,{withCredentials:true});
+    //  console.log("response from addnewtask",response?.data);
+    return response?.data;
+}
+export const getAllTasksApi = async(getCurrentUserId)=>{
+    // console.log(getCurrentUserId,"getcurrentuserid")
+    const response  = await  axios.get(`http://localhost:5000/api/tasks/get-all-tasks/${getCurrentUserId}`)
+    // console.log(response?.data,"response from getalltasks")
+    return response?.data;
+}
+export const updateTaskApi = async(formData)=>{
+
+}
+export const deleteTaskApi = async(formData)=>{
 
 }

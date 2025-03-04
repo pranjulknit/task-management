@@ -1,5 +1,6 @@
 import CommonForm from "@/components/common-form"
-import { signinFormControls } from "@/config"
+import { signInFormControls } from "@/config"
+
 import { loginApi } from "@/services"
 
 import { useForm } from "react-hook-form"
@@ -24,7 +25,7 @@ function SignIn(){
     }
   return(
     <div>
-      <CommonForm butnText={"Signin" } form={formData} formControls={signinFormControls}handleSubmit={handleSubmit}/>
+      <CommonForm butnText={"Signin" } form={formData} formControls={signInFormControls}handleSubmit={handleSubmit}/>
     </div>
 
   )
