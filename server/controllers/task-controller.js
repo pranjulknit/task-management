@@ -69,14 +69,76 @@ const getAllTask = async(req,res)=>{
     
 }
 const updateTask = async(req,res)=>{
+   const {title,description,status,priority,userId,id} = await req.body;
+
+   try{
+    const updateTask = await Task.findByIdAndUpdate({
+        _id
+    },{
+        title,description,status,priority,userId
+    },{new:true});
+
+    if(updateTask){
+        return res.status(200).json({
+            success:true,
+           message:"Task updated successfully"
+        })
+    }
+    else{
+        return res.status(500).json({
+            success : false,
+            message : "Some error occured! Please try again"
+        })
+    }
+}catch(e){
+    
+    return res.status(500).json({
+        success : false,
+        message : "Some error occured"
+    })
+   }
 
 }
 const deleteTask = async(req,res)=>{
+    const id = req.params.id;
 
+    try {
+
+        if(!id){
+            return res.status(400).json({
+                success:false,
+                message:"id is required"
+            })
+        }
+        const deleteTask = await Task.findByIdAndDelete(id);
+
+        if(deleteTask){
+            return res.status(200).json({
+                success:true,
+                message:"Task deleted successfully"
+        })
+    }
+        else{
+            return res.status(500).json({
+                success : false,
+                message : "Some error occured"
+            })
+        }
+        
+    }catch(e){
+        console.log(e);
+
+        return res.status(400).json({
+            success : false,
+            message : "Some error occured"
+        })
+    }
 }
 
 
 module.exports = {
     addNewTask,
-    getAllTask
+    getAllTask,
+    deleteTask,
+    updateTask
 }

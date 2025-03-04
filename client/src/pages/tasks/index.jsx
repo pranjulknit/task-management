@@ -1,7 +1,9 @@
 import CommonButton from "@/components/common-button";
 import AddNewTask from "@/components/tasks/add-new-task";
+import TaskItem from "@/components/tasks/task-item";
+import { Skeleton } from "@/components/ui/skeleton";
 import { TaskManagerContext } from "@/context";
-import { addNewTaskApi, getAllTasksApi } from "@/services";
+import { addNewTaskApi, deleteTaskApi, getAllTasksApi } from "@/services";
 import { useContext, useEffect, useState } from "react";
 
 function TaskPage() {
@@ -18,6 +20,15 @@ function TaskPage() {
       setLoading(false);
     }
   }
+
+  async function handleDelete (getTaskId){
+        console.log(getTaskId);
+        const response = await deleteTaskApi(getTaskId);
+        if(response?.success){
+            fetchListOfTasks();
+        }
+  }
+
   useEffect(() => {
     if (user !== null) fetchListOfTasks();
   }, [user]);
@@ -36,7 +47,10 @@ function TaskPage() {
     console.log(response);
   }
 
+
+
   console.log(tasksList);
+  if(loading) return <Skeleton className={'w-full h-[550px] rounded-[6px] bg-black opacity-50' }/>
   return (
     <>
       <div className="mb-5">
@@ -46,7 +60,14 @@ function TaskPage() {
         />
       </div>
       <div className="mt-5 flex flex-col">
-        <div>List Of Tasks</div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">{
+             tasksList?.length > 0?
+              tasksList.map(taskItem=>  <TaskItem item={taskItem} handleDelete={handleDelete} />)
+             : <h1>No Tasks Added</h1>
+            
+            }
+
+        </div>
         <AddNewTask
           showDialog={showDialog}
           setShowDialog={setShowDialog}
