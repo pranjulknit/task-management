@@ -50,7 +50,9 @@ export const getAllTasksApi = async(getCurrentUserId)=>{
     return response?.data;
 }
 export const updateTaskApi = async(formData)=>{
-
+    const response  = await  axios.put(`http://localhost:5000/api/tasks/update-task`,formData)
+    // console.log(response?.data,"response from getalltasks")
+    return response?.data;
 }
 export const deleteTaskApi = async(getCurrentUserId)=>{
     const response  = await  axios.delete(`http://localhost:5000/api/tasks/delete-task/${getCurrentUserId}`)

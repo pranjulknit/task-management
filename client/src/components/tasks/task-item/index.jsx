@@ -4,7 +4,11 @@ import { scrumBoardOptions } from "@/config";
 
 function TaskItem({
   item,
-  handleDelete
+  handleDelete,
+  setShowDialog,
+  
+        setCurrentEditedId,
+        taskFormData
 }) {
   return (
     <CommonCard
@@ -12,7 +16,13 @@ function TaskItem({
     description={item?.status}
     footerContent={
     <div className="flex w-full justify-between items-center">
-      <CommonButton buttonText={"Edit"}/>
+      <CommonButton onClick={()=>{setShowDialog(true); setCurrentEditedId(item?._id)
+        taskFormData.setValue("title",item?.title);
+        taskFormData.setValue("description",item?.description);
+        taskFormData.setValue("status",item?.status);
+        taskFormData.setValue("priority",item?.priority);
+
+      }} buttonText={"Edit"}/>
       <CommonButton onClick={()=>handleDelete(item?._id)} buttonText={"Delete"}/>
       
 

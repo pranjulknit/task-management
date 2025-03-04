@@ -1,28 +1,25 @@
 import CommonDialog from "@/components/common-dialog";
 import { addNewTaskFormControls } from "@/config";
 
-import { TaskManagerContext } from "@/context";
-import { addNewTaskApi } from "@/services";
-import { useContext } from "react";
-
 function AddNewTask({
   showDialog,
   setShowDialog,
- handleSubmit,taskFormData
- 
- 
-
+  handleSubmit,
+  taskFormData,
+  currentEditedId,
+  setCurrentEditedId,
 }) {
-
-   
-   
   return (
     <CommonDialog
       formControls={addNewTaskFormControls}
+      onOpenChange={()=>{
+        setShowDialog(false);
+        currentEditedId ?taskFormData.reset():null;
+        setCurrentEditedId(null);
+      }}
       showDialog={showDialog}
-      
-      title={ "Post New Task"}
-      btnText={"Add Task"}
+      title={currentEditedId !== null ? "Edit Task" : "Post New Task"}
+      btnText={currentEditedId !== null ? "Edit" : "Add"}
       handleSubmit={handleSubmit}
       formData={taskFormData}
     />

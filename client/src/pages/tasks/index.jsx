@@ -3,12 +3,14 @@ import AddNewTask from "@/components/tasks/add-new-task";
 import TaskItem from "@/components/tasks/task-item";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TaskManagerContext } from "@/context";
-import { addNewTaskApi, deleteTaskApi, getAllTasksApi } from "@/services";
+import { addNewTaskApi, deleteTaskApi, getAllTasksApi, updateTaskApi } from "@/services";
 import { useContext, useEffect, useState } from "react";
+import { set } from "react-hook-form";
 
 function TaskPage() {
   const [showDialog, setShowDialog] = useState(false);
-  const { tasksList, setTasksList, setLoading, loading, user, taskFormData } =
+  const { tasksList, setTasksList, setLoading, loading, user, taskFormData,currentEditedId,
+    setCurrentEditedId } =
     useContext(TaskManagerContext);
   async function fetchListOfTasks() {
     console.log(user, "user hai");
@@ -34,8 +36,14 @@ function TaskPage() {
   }, [user]);
 
   async function handleSubmit(getData) {
+
+
     console.log(user);
-    const response = await addNewTaskApi({
+    const response =  currentEditedId !== null ? await updateTaskApi({
+        ...getData,
+        _id:currentEditedId,
+        userId: user?._id,
+    }) :await addNewTaskApi({
       ...getData,
       userId: user?._id,
     });
@@ -43,6 +51,7 @@ function TaskPage() {
       setShowDialog(false);
       taskFormData.reset();
       fetchListOfTasks();
+      setCurrentEditedId(null);
     }
     console.log(response);
   }
@@ -62,7 +71,7 @@ function TaskPage() {
       <div className="mt-5 flex flex-col">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">{
              tasksList?.length > 0?
-              tasksList.map(taskItem=>  <TaskItem item={taskItem} handleDelete={handleDelete} />)
+              tasksList.map(taskItem=>  <TaskItem taskFormData={taskFormData}setCurrentEditedId={setCurrentEditedId} setShowDialog={setShowDialog} item={taskItem} handleDelete={handleDelete} />)
              : <h1>No Tasks Added</h1>
             
             }
@@ -73,6 +82,8 @@ function TaskPage() {
           setShowDialog={setShowDialog}
           handleSubmit={handleSubmit}
           taskFormData={taskFormData}
+          currentEditedId={currentEditedId}
+          setCurrentEditedId={setCurrentEditedId }
         />
       </div>
     </>

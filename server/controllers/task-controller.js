@@ -69,7 +69,7 @@ const getAllTask = async(req,res)=>{
     
 }
 const updateTask = async(req,res)=>{
-   const {title,description,status,priority,userId,id} = await req.body;
+   const {title,description,status,priority,userId,_id} = await req.body;
 
    try{
     const updateTask = await Task.findByIdAndUpdate({
