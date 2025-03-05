@@ -30,7 +30,7 @@ function Header() {
               Tasks
             </Link>
             <Link
-              className="text-black text-xl font-bold bg-gray-100 border rounded-lg p-3g"
+              className="text-black text-xl font-bold bg-gray-100 border rounded-lg p-3"
               to={"/tasks/scrum-board"}
             >
               Scrum Board
