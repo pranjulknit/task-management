@@ -19,18 +19,18 @@ function Header() {
   }
 
   return (
-    <header className="border-b border-gray-200">
+    <header className="border-b border-gray-200 bg-gray-200">
       <div className="container mx-auto h-16">
-        <div className="flex h-[64px] items-center w-full justify-between">
+        <div className="bg-gray-200 flex h-[64px] items-center w-full justify-between">
           <div className="w-auto">
-            <h1>Task Manager</h1>
+            <h1 className="font-bold border rounded-lg p-3 bg-gray-100">Task Manager</h1>
           </div>
           <div className="flex gap-4">
-            <Link className="text-black text-xl font-bold" to={"/tasks/list"}>
+            <Link className="text-black text-xl font-bold bg-gray-100 border rounded-lg p-3  " to={"/tasks/list"}>
               Tasks
             </Link>
             <Link
-              className="text-black text-xl font-bold"
+              className="text-black text-xl font-bold bg-gray-100 border rounded-lg p-3g"
               to={"/tasks/scrum-board"}
             >
               Scrum Board
