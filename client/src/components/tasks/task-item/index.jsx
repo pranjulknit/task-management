@@ -13,7 +13,7 @@ function TaskItem({
   return (
     <CommonCard
     title={item?.title}
-    description={item?.status}
+    description={ scrumBoardOptions.find(boardOption=> boardOption.id === item?.status).label}
     footerContent={
     <div className="flex w-full justify-between items-center">
       <CommonButton onClick={()=>{setShowDialog(true); setCurrentEditedId(item?._id)
